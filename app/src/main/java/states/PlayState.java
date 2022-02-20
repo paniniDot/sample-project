@@ -80,6 +80,7 @@ public class PlayState extends State {
 		//this.map.adjustPosition(t.getPosition()).x, this.map.adjustPosition(t.getPosition()).y)
 		RectDrawer.showDebugBoundingBoxes(this.map.getMap().keySet().stream().map(k -> k.getBounds()).toList(), Color.BLUE);
 		RectDrawer.showDebugBoundingBoxes(this.map.getTowers().stream().map(k -> k.getBounds()).toList(), Color.RED);
+		RectDrawer.showDebugBoundingBoxes(this.map.getObs().stream().map(k -> k.getBounds()).toList(), Color.GREEN);
 		sb.end();
 	}
 
