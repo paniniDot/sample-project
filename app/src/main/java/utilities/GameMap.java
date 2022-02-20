@@ -71,7 +71,7 @@ public class GameMap {
 	}
 	
 	public void addTroop(Vector2 coord) {
-		if(this.isPixelInMap(coord) /*&& this.isCurt(this.getUnitFromPixel(coord))*/ ) {
+		if(this.isPixelInMap(coord) && this.isCurt(this.getUnitFromPixel(coord))) {
 			this.map.replace(this.getUnitFromPixel(coord), EntityType.TRUPPA);
 		}
 	}
@@ -103,7 +103,17 @@ public class GameMap {
 	}
 	
 	public Set<GridUnit> getTowers() {
-		return this.map.entrySet().stream().filter(e -> e.getValue().equals(EntityType.TORRE)).map(Map.Entry::getKey).collect(Collectors.toSet());
+		return this.map.entrySet().stream()
+				.filter(e -> e.getValue().equals(EntityType.TORRE))
+				.map(Map.Entry::getKey)
+				.collect(Collectors.toSet());
+	}
+	
+	public Set<GridUnit> getObs() {
+		return this.map.entrySet().stream()
+				.filter(e -> e.getValue().equals(EntityType.OSTACOLO))
+				.map(Map.Entry::getKey)
+				.collect(Collectors.toSet());
 	}
 	
 	public Vector2 adjustPosition(Vector2 vec) {
