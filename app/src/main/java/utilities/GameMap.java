@@ -22,7 +22,7 @@ public class GameMap {
 	}
 	
 	public final static int X_START = 178;
-	public final static int Y_START = 245;
+	public final static int Y_START = 255;
 	public final static int X_END = 516;
 	public final static int Y_END = 706;
 	
@@ -33,28 +33,25 @@ public class GameMap {
 		for(int i = GameMap.X_START; i < GameMap.X_END; i+= GridUnit.WIDTH) {
 			for(int j = GameMap.Y_START; j < GameMap.Y_END; j+= GridUnit.HEIGHT) {
 				var unit = new GridUnit(i, j);
-				if(this.isTower(unit)) {
-					this.map.put(unit, EntityType.TORRE);
-				} else if(this.isCurt(unit)) {
-					System.out.println("Diobono" + unit.getBounds());
-					this.map.put(unit, EntityType.CAMPO);
-				} else {
+				if(this.isFiume(unit)) {
 					this.map.put(unit, EntityType.OSTACOLO);
+				} else if(this.isTower(unit)){ 
+					this.map.put(unit, EntityType.TORRE);
+				} else {
+					this.map.put(unit, EntityType.CAMPO);
 				}
 			}
 		}
 	}
 	
 	private boolean isCurt(GridUnit unit) {
-		return new Rectangle(X_START, Y_END, X_END - X_START, Y_END - Y_START).contains(unit.getBounds())
-				&& !this.isTower(unit) 
-				&& !this.isFiume(unit);
+		return !this.isTower(unit) && !this.isFiume(unit);
 	}
 
 	private boolean isFiume(GridUnit unit) {
-		return new Rectangle(153, 492, 72, 26).overlaps(unit.getBounds()) 
-				|| new Rectangle(263, 492, 168, 26).overlaps(unit.getBounds())
-				|| new Rectangle(468, 492, 68, 26).overlaps(unit.getBounds());
+		return new Rectangle(153, 471, 72, 26).overlaps(unit.getBounds()) 
+				|| new Rectangle(263, 471, 168, 26).overlaps(unit.getBounds())
+				|| new Rectangle(468, 471, 68, 26).overlaps(unit.getBounds());
 	}
 	
 	private boolean isTower(GridUnit unit) {
