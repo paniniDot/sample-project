@@ -1,5 +1,6 @@
 package states;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 import com.badlogic.gdx.Gdx;
@@ -7,6 +8,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 import entities.Entity;
@@ -42,17 +44,18 @@ public class PlayState extends State {
 	protected void handleInput() {
 		if(Gdx.input.justTouched()) {
 			var coord = new Vector2(Gdx.input.getX(), Gdx.input.getY());
+			System.out.println(coord);
 			if(this.map.isPixelInMap(coord)) {
 				if(this.map.getEntityType(coord).equals(GameMap.EntityType.OSTACOLO)) {
 					System.out.println("Ostacolo");
-					this.map.addTroop(coord);
 					this.entities.addEntity(new IceWizard(coord, Entity.Membership.FRIENDLY));
 				} else if(this.map.getEntityType(coord).equals(GameMap.EntityType.TORRE)) {
 					System.out.println("Torre");				
 				} else if(this.map.getEntityType(coord).equals(GameMap.EntityType.CAMPO)) {
 					System.out.println("Campo");
+					this.map.addTroop(coord);
 				}
-			}		
+			}	
 		}
 	}
 
@@ -76,12 +79,12 @@ public class PlayState extends State {
 		sb.begin();
 		sb.draw(this.arena, 0, 0, Royale.WIDTH, Royale.HEIGHT);
 		this.entities.getTroops().forEach(t -> sb.draw(t.getTexture(), this.getCenteredX(t), this.getCenteredY(t)));
-//sb.draw(new Texture("Models/Sprites/IceWizard/N.png"), t.x, t.y)
 		//this.map.adjustPosition(t.getPosition()).x, this.map.adjustPosition(t.getPosition()).y)
+		sb.end();
 		RectDrawer.showDebugBoundingBoxes(this.map.getMap().keySet().stream().map(k -> k.getBounds()).toList(), Color.BLUE);
 		RectDrawer.showDebugBoundingBoxes(this.map.getTowers().stream().map(k -> k.getBounds()).toList(), Color.RED);
 		RectDrawer.showDebugBoundingBoxes(this.map.getObs().stream().map(k -> k.getBounds()).toList(), Color.GREEN);
-		sb.end();
+		RectDrawer.showDebugBoundingBoxes(List.of(new Rectangle(153, 471, 72, 26), new Rectangle(263, 471, 168, 26), new Rectangle(468, 471, 68, 26)), Color.MAGENTA);
 	}
 
 	@Override
