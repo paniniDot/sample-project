@@ -5,6 +5,8 @@ import java.util.Objects;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
+import royale.view.Royale;
+
 public class GridUnit {
 	public final static int WIDTH = 19;
 	public final static int HEIGHT = 15;
@@ -12,7 +14,7 @@ public class GridUnit {
 	private final Rectangle bounds;
 
 	public GridUnit(final float x, final float y) {
-		this.bounds = new Rectangle(x, y+GridUnit.HEIGHT, GridUnit.WIDTH, GridUnit.HEIGHT);
+		this.bounds = new Rectangle(x, y, GridUnit.WIDTH, GridUnit.HEIGHT);
 	}
 	
 	public Rectangle getBounds() {
